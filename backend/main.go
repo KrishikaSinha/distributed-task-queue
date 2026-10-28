@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/joho/godotenv"
 
@@ -14,9 +15,8 @@ import (
 )
 
 func main() {
-
 	if err := godotenv.Load("../.env"); err != nil {
-		log.Println("Warning: .env file not found at ../.env")
+		log.Println("Warning: .env file not found at ../.env; using environment variables")
 	}
 
 	if err := redis.Connect(); err != nil {
@@ -58,13 +58,18 @@ func main() {
 
 	router := routes.SetupRoutes(jobQueue)
 
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+
 	fmt.Println("===================================")
 	fmt.Println(" Distributed Task Queue")
-	fmt.Println(" Server: http://localhost:8080")
+	fmt.Println(" Port:", port)
 	fmt.Println(" Workers: 4")
 	fmt.Println(" Redis: Connected")
 	fmt.Println(" PostgreSQL: Connected")
 	fmt.Println("===================================")
 
-	log.Fatal(http.ListenAndServe(":8080", router))
+	log.Fatal(http.ListenAndServe(":"+port, router))
 }
