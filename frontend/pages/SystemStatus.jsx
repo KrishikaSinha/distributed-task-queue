@@ -1,6 +1,8 @@
+
 import React, { useCallback, useEffect, useState } from "react";
 
 const API_URL = "https://distributed-task-queue-048i.onrender.com/api/jobs";
+const HEALTH_URL = "https://distributed-task-queue-048i.onrender.com/api/health";
 
 const INITIAL_SERVICES = [
   {
@@ -35,60 +37,50 @@ export default function SystemStatus() {
       });
 
       if (!response.ok) {
-        throw new Error(`Backend health check failed (HTTP ${response.status}).`);
+        throw new Error(
+          `Backend health check failed (HTTP ${response.status}).`
+        );
       }
 
       const data = await response.json();
+
+      const apiStatus = data.services?.api;
       const redisStatus = data.services?.redis;
       const postgresStatus =
         data.services?.postgresql ?? data.services?.postgres;
 
+      const isOnline = (status) =>
+        status === "online" || status === "connected";
+
+      const isOffline = (status) =>
+        status === "offline" || status === "disconnected";
+
       setServices([
         {
           ...INITIAL_SERVICES[0],
-          status: "online",
+          status: isOnline(apiStatus) ? "online" : isOffline(apiStatus) ? "offline" : "unknown",
         },
         {
           ...INITIAL_SERVICES[1],
-          status:
-            redisStatus === "online" || redisStatus === "connected"
-              ? "online"
-              : redisStatus === "offline" || redisStatus === "disconnected"
-                ? "offline"
-                : "unknown",
+          status: isOnline(redisStatus) ? "online" : isOffline(redisStatus) ? "offline" : "unknown",
         },
         {
           ...INITIAL_SERVICES[2],
-          status:
-            postgresStatus === "online" || postgresStatus === "connected"
-              ? "online"
-              : postgresStatus === "offline" ||
-                  postgresStatus === "disconnected"
-                ? "offline"
-                : "unknown",
+          status: isOnline(postgresStatus) ? "online" : isOffline(postgresStatus) ? "offline" : "unknown",
         },
       ]);
 
       setCheckError("");
     } catch (error) {
       setServices([
-        {
-          ...INITIAL_SERVICES[0],
-          status: "offline",
-        },
-        {
-          ...INITIAL_SERVICES[1],
-          status: "unknown",
-        },
-        {
-          ...INITIAL_SERVICES[2],
-          status: "unknown",
-        },
+        { ...INITIAL_SERVICES[0], status: "offline" },
+        { ...INITIAL_SERVICES[1], status: "unknown" },
+        { ...INITIAL_SERVICES[2], status: "unknown" },
       ]);
 
       setCheckError(
         error.message === "Failed to fetch"
-          ? "Backend se connection nahi ho pa raha. Go server running hai ya nahi check karo."
+          ? "Backend se connection nahi ho pa raha. Health URL aur backend availability check karo."
           : error.message || "System health check failed."
       );
     } finally {
