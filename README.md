@@ -14,6 +14,11 @@ A full-stack project that processes background jobs using **Go, Redis, and Postg
 
 ---
 
+## 🌐 Live Deployment
+
+https://distributed-task-queue-1-g5f2.onrender.com
+
+
 ## ✨ Overview
 
 Distributed Task Queue is designed to handle background tasks asynchronously. Jobs are queued through Redis, processed by multiple workers, and tracked in PostgreSQL.
@@ -93,9 +98,13 @@ The project demonstrates backend engineering concepts such as job queues, concur
 | 👷 Workers | Monitor worker activity and assignments |
 | 💚 System Status | Check API, Redis, and PostgreSQL health |
 
-## 🌐 Live Deployment
+🌐 Live Backend
 
-https://distributed-task-queue-1-g5f2.onrender.com
+Backend URL:
+https://distributed-task-queue-048i.onrender.com
+
+Health Check:
+Check API Health
 
 Expected healthy response:
 
