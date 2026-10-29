@@ -93,13 +93,9 @@ The project demonstrates backend engineering concepts such as job queues, concur
 | 👷 Workers | Monitor worker activity and assignments |
 | 💚 System Status | Check API, Redis, and PostgreSQL health |
 
-## 🌐 Live Backend
+## 🌐 Live Deployment
 
-**Backend URL:**  
-https://distributed-task-queue-048i.onrender.com
-
-**Health Check:**  
-[Check API Health](https://distributed-task-queue-048i.onrender.com/api/health)
+https://distributed-task-queue-1-g5f2.onrender.com
 
 Expected healthy response:
 
