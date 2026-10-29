@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 
-const HEALTH_URL = "http://localhost:8080/api/health";
+const API_URL = "https://distributed-task-queue-048i.onrender.com/api/jobs";
 
 const INITIAL_SERVICES = [
   {

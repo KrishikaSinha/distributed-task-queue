@@ -2,7 +2,7 @@
 import React, { useEffect, useState, useCallback } from "react";
 import WorkerStatus from "../components/WorkerStatus";
 
-const API_URL = "http://localhost:8080/api/jobs";
+const API_URL = "https://distributed-task-queue-048i.onrender.com/api/jobs";
 
 export default function Dashboard() {
   const [jobs, setJobs] = useState([]);

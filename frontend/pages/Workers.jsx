@@ -1,7 +1,7 @@
 
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 
-const API_URL = "http://localhost:8080/api/jobs";
+const API_URL = "https://distributed-task-queue-048i.onrender.com/api/jobs";
 
 const WORKER_IDS = [
   "worker-1",

@@ -1,7 +1,7 @@
 
 import React, { useState } from "react";
 
-const API_URL = "http://localhost:8080/api/jobs";
+const API_URL = "https://distributed-task-queue-048i.onrender.com/api/jobs";
 
 export default function JobForm({ onJobCreated }) {
   const [type, setType] = useState("email");

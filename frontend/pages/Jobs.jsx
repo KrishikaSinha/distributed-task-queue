@@ -2,7 +2,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import JobForm from "../components/JobForm";
 
-const API_URL = "http://localhost:8080/api/jobs";
+const API_URL = "https://distributed-task-queue-048i.onrender.com/api/jobs";
 
 export default function Jobs() {
   const [jobs, setJobs] = useState([]);
